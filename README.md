@@ -17,15 +17,5 @@ An automated Python tool that classifies resumes into job categories like **Data
 - Uses simple keyword-based logic to assign job categories
 - Saves the result in `classified_resumes.csv`
 
-##  Folder Structure
-Resume-Screening-Assistant/
-├── resumes/ # Folder with PDF resumes
-├── outputs/ # CSV file will be saved here
-├── scripts/
-│ ├── resume_parser.py
-│ ├── classifier.py
-│ └── main.py
-├── requirements.txt
-└── README.md
 
 

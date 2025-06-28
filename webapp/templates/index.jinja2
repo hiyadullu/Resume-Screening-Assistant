@@ -59,12 +59,70 @@
     .centered {
       text-align: center;
     }
+
+    form {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    form input[type="file"] {
+      padding: 8px;
+      margin: 10px;
+    }
+
+    form button {
+      padding: 8px 16px;
+      background-color: #4BC0C0;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .results {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .results ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .results li {
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
 
   <h1 class="centered">Resume Classification Report</h1>
 
+  <!-- ✅ Upload Form -->
+  <div class="section">
+    <h2 class="centered">📤 Upload Your Resume (PDF)</h2>
+    <form action="/" method="POST" enctype="multipart/form-data">
+      <input type="file" name="resume" accept=".pdf" required>
+      <button type="submit">Upload & Analyze</button>
+    </form>
+
+    {% if results %}
+    <div class="results">
+      <h3>🔍 Match Results:</h3>
+      <ul>
+        {% for category, data in results.items() %}
+          <li>
+            <strong>{{ category }}</strong> – {{ data.match_percent }}% match<br>
+            Matched Keywords: {{ data.matched }}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- 📄 Table Output -->
   <div class="section">
     <h2>📄 Table Output</h2>
     <table class="data">
@@ -81,6 +139,7 @@
     </table>
   </div>
 
+  <!-- 📊 Chart -->
   <div class="section">
     <h2>📊 Visual Summary</h2>
     <div class="centered">
@@ -90,32 +149,34 @@
   </div>
 
   <script type="application/javascript">
-  const chartLabels = {{ labels | tojson | safe }};
-  const chartValues = {{ values | tojson | safe }};
-  const ctx = document.getElementById('roleChart').getContext('2d');
+    const chartLabels = {{ labels | tojson | safe }};
+    const chartValues = {{ values | tojson | safe }};
+    const ctx = document.getElementById('roleChart').getContext('2d');
 
-  const roleChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: chartLabels,
-      datasets: [{
-        data: chartValues,
-        backgroundColor: ['#4BC0C0', '#FF6384', '#FFCE56', '#36A2EB', '#9966FF'],
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: 'bottom',
+    const roleChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: chartLabels,
+        datasets: [{
+          data: chartValues,
+          backgroundColor: ['#4BC0C0', '#FF6384', '#FFCE56', '#36A2EB', '#9966FF'],
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom',
+          }
         }
       }
-    }
-  });
-</script>
-
+    });
+  </script>
 
 </body>
 </html>
 
+{% if result %}
+  <p><strong>Result:</strong> {{ result }}</p>
+{% endif %}
 
