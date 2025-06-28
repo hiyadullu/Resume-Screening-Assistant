@@ -90,16 +90,17 @@ Visit the app in your browser at `http://127.0.0.1:5000`
 
 ## Project Structure
 
-resume-analyzer/
-├── templates/
-│   └── index.jinja2              # Main frontend page
-├── uploads/                      # Uploaded resume PDFs
-├── outputs/
-│   └── classified_resumes.csv    # Output logs
-├── app.py                        # Flask application
-├── requirements.txt
-└── README.md
+## Project Structure
 
+- **resume-analyzer/**
+  - **templates/**
+    - `index.jinja2` – Main frontend page
+  - **uploads/** – Uploaded resume PDFs
+  - **outputs/**
+    - `classified_resumes.csv` – Output logs
+  - `app.py` – Flask application
+  - `requirements.txt`
+  - `README.md`
 
 ---
 
